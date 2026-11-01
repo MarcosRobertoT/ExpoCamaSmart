@@ -1,5 +1,6 @@
 from connector import conectar
 
+#Não rodar. Tem que atualizar a tabela
 def salvar_med(dados):
     conexao = None
     cursor = None
