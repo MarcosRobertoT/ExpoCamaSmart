@@ -61,7 +61,7 @@ def verificarMedicoesMaisUsuario(medicao,usuario):
     if medicao["umidade"] < usuario["umidadeIdeal"]:
         print(f'Umidade muito baixa. Umidificador ajustado para a faixa de {usuario["umidadeIdeal"]*100}% até {usuario["umidadeIdeal2"]*100}%')
         controle = True
-    if medicao["umidade"] > usuario["umidadeIdeal"]:
+    if medicao["umidade"] > usuario["umidadeIdeal2"]:
         print(f'Umidade muito alta. Umidificador ajustado para a faixa de {usuario["umidadeIdeal"]*100}% até {usuario["umidadeIdeal2"]*100}%')
         controle = True
     if medicao["ar"] > 50:
