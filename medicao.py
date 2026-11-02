@@ -35,7 +35,7 @@ def coletar_dados_medidos():
     temperatura = round(random.uniform(15,38),1)
 
     #Registrar horario da medição
-    horariomed = datetime.now()#.strftime("%d/%h/%y %H:%M:%S")
+    horariomed = datetime.now().strftime("%d/%m/%y %H:%M:%S")
 
     #dicionario com valores
     medicao = {
