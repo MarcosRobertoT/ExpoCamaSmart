@@ -22,7 +22,6 @@ def dados_Pessoa():
             "umidadeIdeal": umidadeIdeal,
             "umidadeIdeal2": umidadeIdeal2
         }
-        print(usuario)
         return usuario
 
     except Exception as erro:
@@ -48,30 +47,24 @@ def coletar_dados_medidos():
     return medicao
 
 
-def verificarMedicoesMaisUsuario(medicao,usuario,energia):
+def verificarMedicoesMaisUsuario(medicao,usuario):
     #gambiarra
     controle = False
-    energia = 0
 
     if medicao["temperatura"] < usuario["tempIdeal"]:
         print(f'=Temperatura muito baixa. Ar condicionado ajustado para a faixa de {usuario["tempIdeal"]}°C até {usuario["tempIdeal2"]}°C')
         controle = True
-        energia = energia + 0.3
     if medicao["temperatura"] > usuario["tempIdeal2"]:
         print(f'=Temperatura muito alta. Ar condicionado ajustado para a faixa de {usuario["tempIdeal"]}°C até {usuario["tempIdeal2"]}°C')
         controle = True
-        energia = energia + 0.8
     if medicao["umidade"] < usuario["umidadeIdeal"]:
         print(f'=Umidade muito baixa. Umidificador ajustado para a faixa de {usuario["umidadeIdeal"]*100}% até {usuario["umidadeIdeal2"]*100}%')
         controle = True
-        energia = energia + 0.8
     if medicao["umidade"] > usuario["umidadeIdeal2"]:
         print(f'=Umidade muito alta. Umidificador ajustado para a faixa de {usuario["umidadeIdeal"]*100}% até {usuario["umidadeIdeal2"]*100}%')
         controle = True
-        energia = energia + 0.5
     if medicao["ar"] > 50:
         print("=Qualidade do Ar acima de 50. Filtro de ar ligado")
         controle = True
-        energia = energia + 0.3
     if not controle:
         print("=Nenhuma ação realizada. Todas as medições dentro do ideal")
