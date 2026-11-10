@@ -11,9 +11,6 @@ def dados_Pessoa():
         umidadeIdeal = float(input(f"{nome}, qual faixa de umidade ideal para você dormir?\nInsira o valor em porcentagem (Exemplo: 20%,30%) inicial: ").replace("%",""))
         umidadeIdeal2 = float(input(f"Insira o valor em porcentagem (exemplo 20%, 30%) final: ").replace("%",""))
 
-        umidadeIdeal = umidadeIdeal/100
-        umidadeIdeal2 = umidadeIdeal2 / 100
-
         usuario = {
             "nome": nome,
             "idade": idade,
@@ -38,12 +35,11 @@ def coletar_dados_medidos():
 
     #dicionario com valores
     medicao = {
-        "umidade": umidade/100,
+        "umidade": umidade,
         "ar": ar,
         "temperatura": temperatura,
         "horario": horariomed
     }
-    print(medicao)
     return medicao
 
 
@@ -52,19 +48,24 @@ def verificarMedicoesMaisUsuario(medicao,usuario):
     controle = False
 
     if medicao["temperatura"] < usuario["tempIdeal"]:
-        print(f'=Temperatura muito baixa. Ar condicionado ajustado para a faixa de {usuario["tempIdeal"]}°C até {usuario["tempIdeal2"]}°C')
+        diferencaA = round(usuario["tempIdeal"] - medicao["temperatura"], 1)
+        print(f'=Temperatura muito baixa. Aquecendo a sala em {diferencaA}°C, para ficar numa temperatura de {usuario["tempIdeal"]}°C até {usuario["tempIdeal2"]}°C')
         controle = True
-    if medicao["temperatura"] > usuario["tempIdeal2"]:
-        print(f'=Temperatura muito alta. Ar condicionado ajustado para a faixa de {usuario["tempIdeal"]}°C até {usuario["tempIdeal2"]}°C')
+    elif medicao["temperatura"] > usuario["tempIdeal2"]:
+        diferencaA = round(medicao["temperatura"] - usuario["tempIdeal2"], 1)
+        print(f'=Temperatura muito alta. Resfriando a sala em {diferencaA}°C, para ficar numa temperatura de {usuario["tempIdeal"]}°C até {usuario["tempIdeal2"]}°C')
         controle = True
     if medicao["umidade"] < usuario["umidadeIdeal"]:
-        print(f'=Umidade muito baixa. Umidificador ajustado para a faixa de {usuario["umidadeIdeal"]*100}% até {usuario["umidadeIdeal2"]*100}%')
+        diferencaB = round(usuario["umidadeIdeal"] - medicao["umidade"], 1)
+        print(f'=Umidade muito baixa. Umidificador ligado, ajustado em {diferencaB}, para a faixa de {usuario["umidadeIdeal"]}% até {usuario["umidadeIdeal2"]}%')
         controle = True
-    if medicao["umidade"] > usuario["umidadeIdeal2"]:
-        print(f'=Umidade muito alta. Umidificador ajustado para a faixa de {usuario["umidadeIdeal"]*100}% até {usuario["umidadeIdeal2"]*100}%')
+    elif medicao["umidade"] > usuario["umidadeIdeal2"]:
+        diferencaB = round(medicao["umidade"] - usuario["umidadeIdeal2"], 1)
+        print(f'=Umidade muito alta. Desumidificador ligado, ajustado em {diferencaB}, para a faixa de {usuario["umidadeIdeal"]}% até {usuario["umidadeIdeal2"]}%')
         controle = True
     if medicao["ar"] > 50:
-        print("=Qualidade do Ar acima de 50. Filtro de ar ligado")
+        diferencaC = round(medicao["ar"] - 50, 1)
+        print(f'=IQAr superior a 50 detectado. Ligando filtro de ar para reter poluentes. Expectativa: abaixar por, no minimo {diferencaC}IQAr.')
         controle = True
     if not controle:
         print("=Nenhuma ação realizada. Todas as medições dentro do ideal")
